@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Sneakers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="d-flex justify-content-between align-items-center py-3 border-bottom">
+            <!-- โลโก้ -->
+            <div class="d-flex align-items-center">
+                <img src="https://via.placeholder.com/50" alt="Logo" class="me-2" />
+            </div>
+
+            <!-- เมนูหมวดหมู่ -->
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="index.html" class="nav-link">ผู้ชาย</a></li>
+                <li class="nav-item"><a href="womenshoes.html" class="nav-link">ผู้หญิง</a></li>
+                <li class="nav-item"><a href="sportshoes.html" class="nav-link">กีฬา</a></li>
+                <li class="nav-item"><a href="babyshoes.html" class="nav-link">เด็ก</a></li>
+                <li class="nav-item"><a href="sandalsshoes.html" class="nav-link">รองเท้าแตะ</a></li>
+            </ul>
+
+            <!-- ค้นหา, ผู้ใช้ และตะกร้า -->
+            <div class="d-flex align-items-center">
+                <form class="d-flex me-3">
+                    <input class="form-control" type="search" placeholder="ค้นหา" aria-label="Search" />
+                    <button class="btn btn-outline-primary ms-2" type="submit">
+                        ค้นหา
+                    </button>
+                </form>
+
+                <!-- ไอคอนผู้ใช้ -->
+                <a href="#" class="btn btn-outline-secondary me-2">
+                    <i class="bi bi-person"></i>
+                </a>
+
+                <!-- ไอคอนตะกร้าสินค้า -->
+                <a href="cart.html" class="btn btn-outline-secondary position-relative">
+                    <i class="bi bi-cart"></i>
+                    <span id="cartCount"
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        0
+                    </span>
+                </a>
+
+
+            </div>
+        </header>
+    </div>
+
+
+    <div class="container py-5">
+        <!-- Bootstrap Carousel -->
+        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- ปุ่มหรือรูปสินค้า -->
+                <div id="carouselContainer" class="carousel-container">
+                    <div class="carousel-item active">
+                        <img src="" class="d-block w-100 product-item" alt="Product Image" id="productImage">
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- รูปภาพสินค้า -->
+        <div class="product-gallery">
+            <img src="https://img5.pic.in.th/file/secure-sv1/width_779.webp" alt="Air Jordan 1 Low"
+                class="product-thumbnail" data-bs-toggle="modal" data-bs-target="#productModal"
+                data-image="https://img5.pic.in.th/file/secure-sv1/width_779.webp" data-name="Air Jordan 1 Low"
+                data-original-price="" data-discount-price="4,900"
+                data-details="ผสมผสานลุคอันเป็นเอกลักษณ์ของรุ่นออริจินัลเข้ากับความพอดีและสัมผัสที่ออกแบบใหม่เพื่อความเบาสบายตลอดทั้งวัน">
+            <img src="https://img2.pic.in.th/pic/width_800-1.jpg" alt="samba OG" class="product-thumbnail"
+                data-bs-toggle="modal" data-bs-target="#productModal"
+                data-image="https://img2.pic.in.th/pic/width_800-1.jpg" data-name="samba OG" data-original-price=""
+                data-discount-price="4,700"
+                data-details="รองเท้า Samba ถือกำเนิดขึ้นบนสนามหญ้า ก่อนก้าวสู่ตำแหน่งไอคอนของสไตล์สตรีทที่ไม่เคยตกยุค รองเท้าคู่นี้ยังคงดีไซน์ดั้งเดิมของรองเท้ารุ่นดังเอาไว้อย่างครบถ้วน อัปเปอร์ทำจากหนังสัมผัสนุ่ม แต่งโอเวอร์เลย์หนังซูเอด">
+            <img src="https://img5.pic.in.th/file/secure-sv1/width_800-2.webp" alt="4DFWDxSTRUNG"
+                class="product-thumbnail" data-bs-toggle="modal" data-bs-target="#productModal"
+                data-image="https://img5.pic.in.th/file/secure-sv1/width_800-2.webp" data-name="4DFWDxSTRUNG"
+                data-original-price="" data-discount-price="9,400"
+                data-details="รุ่นดั้งเดิมเป็นรองเท้าสำหรับวิ่งประจำวันที่สวมใส่จนเมื่อยล้าและต้องซื้อใหม่ทุกครั้ง รองเท้ารุ่นโปรดของแฟนๆ รุ่นนี้ซึ่งวางจำหน่ายมานานได้กลับมาวางจำหน่ายอีกครั้ง">
+            <img src="https://img2.pic.in.th/pic/width_800-3.jpg" alt="New balance FuelCell Rebet"
+                class="product-thumbnail" data-bs-toggle="modal" data-bs-target="#productModal"
+                data-image="https://img2.pic.in.th/pic/width_800-3.jpg" data-name="New balance FuelCell Rebet"
+                data-original-price="" data-discount-price="5,400"
+                data-details="รุ่นดั้งเดิมเป็นรองเท้าสำหรับวิ่งประจำวันที่สวมใส่จนเมื่อยล้าและต้องซื้อใหม่ทุกครั้ง รองเท้ารุ่นโปรดของแฟนๆ">
+            <img src="https://img5.pic.in.th/file/secure-sv1/width_800-4.webp" alt="new balance 809"
+                class="product-thumbnail" data-bs-toggle="modal" data-bs-target="#productModal"
+                data-image="https://img5.pic.in.th/file/secure-sv1/width_800-4.webp" data-name="new balance 809"
+                data-original-price="" data-discount-price="1,790" data-details="">
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="max-width: 70%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel">รายละเอียดสินค้า</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <!-- Product Image -->
+                            <div class="col-md-6">
+                                <img id="modalProductImage" src="" class="img-fluid" alt="Product Image">
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="col-md-6">
+                                <h5 class="modal-product-name"></h5> <!-- ชื่อสินค้า -->
+                                <p class="original-price"></p> <!-- ราคาปกติ -->
+                                <p class="discount-price"></p> <!-- ราคาส่วนลด -->
+                                <p class="modal-product-details"></p> <!-- รายละเอียดสินค้า -->
+
+                                <!-- Select Size (Show as Buttons) -->
+                                <div class="mb-3">
+                                    <label for="productSize" class="form-label">เลือกไซส์:</label>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-outline-primary" data-size="38">38</button>
+                                        <button type="button" class="btn btn-outline-primary" data-size="39">39</button>
+                                        <button type="button" class="btn btn-outline-primary" data-size="40">40</button>
+                                        <button type="button" class="btn btn-outline-primary" data-size="41">41</button>
+                                        <button type="button" class="btn btn-outline-primary" data-size="42">42</button>
+                                        <button type="button" class="btn btn-outline-primary" data-size="43">43</button>
+                                    </div>
+                                </div>
+
+                                <!-- Add to Cart and Buy Now Buttons -->
+                                <div class="d-flex flex-column gap-2">
+                                    <button class="btn btn-primary w-50" id="addToCartBtn" disabled>
+                                        เพิ่มในตะกร้า
+                                    </button>
+                                    <button class="btn btn-success w-50" id="buyNowBtn" disabled>
+                                        ซื้อทันที
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+        <!-- Add Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="scripts.js"></script>
+
+
+</body>
+
+</html>

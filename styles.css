@@ -1,0 +1,123 @@
+body {
+    font-family: 'Prompt', sans-serif;
+    background-color: #ffffff;
+    color: #2c3e50;
+}
+
+
+
+.nav-pills .nav-link {
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-pills .nav-link:hover {
+    color: #007bff;
+}
+
+.nav-pills .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background-color: #007bff;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.carousel-inner img {
+    height: 700px;
+    object-fit: cover;
+}
+
+.product-gallery {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    overflow-x: auto;
+}
+
+.product-gallery {
+    display: flex;
+    gap: 20px;
+    /* เพิ่มระยะห่างระหว่างรูปภาพ */
+    margin-top: 15px;
+    overflow-x: auto;
+}
+
+.product-gallery img {
+    width: 250px;
+    /* ขนาดปกติของรูปภาพ */
+    height: 150px;
+    /* ขนาดปกติของรูปภาพ */
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease, border 0.3s ease;
+    /* การขยายภาพเมื่อ hover */
+    position: relative;
+    /* เพื่อให้สามารถแสดงข้อความที่ตรงกลางได้ */
+    margin-bottom: 10px;
+    /* ระยะห่างด้านล่างของรูปภาพ */
+}
+
+.product-gallery img:hover {
+    transform: scale(1);
+    /* ขยายภาพเมื่อ hover */
+    border-color: #000;
+    /* เปลี่ยนสีกรอบเมื่อ hover */
+}
+
+.product-gallery img.active {
+    border-color: #007bff;
+}
+
+.modal .modal-content {
+    border-radius: 10px;
+}
+
+.modal .modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal .original-price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.modal .discount-price {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal-dialog {
+    width: 95%;
+    /* ปรับขนาดเป็น 95% */
+    max-width: none;
+    /* ปิดการจำกัดขนาดสูงสุด */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}

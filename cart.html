@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Sneakers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        .cart-item img {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+        }
+
+        .cart-summary {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="d-flex justify-content-between align-items-center py-3 border-bottom">
+            <!-- โลโก้ -->
+            <div class="d-flex align-items-center">
+                <img src="https://via.placeholder.com/50" alt="Logo" class="me-2" />
+            </div>
+
+            <!-- เมนูหมวดหมู่ -->
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="index.html" class="nav-link">ผู้ชาย</a></li>
+                <li class="nav-item"><a href="womenshoes.html" class="nav-link">ผู้หญิง</a></li>
+                <li class="nav-item"><a href="sportshoes.html" class="nav-link">กีฬา</a></li>
+                <li class="nav-item"><a href="babyshoes.html" class="nav-link">เด็ก</a></li>
+                <li class="nav-item"><a href="sandalsshoes.html" class="nav-link">รองเท้าแตะ</a></li>
+            </ul>
+
+            <!-- ค้นหา, ผู้ใช้ และตะกร้า -->
+            <div class="d-flex align-items-center">
+                <form class="d-flex me-3">
+                    <input class="form-control" type="search" placeholder="ค้นหา" aria-label="Search" />
+                    <button class="btn btn-outline-primary ms-2" type="submit">
+                        ค้นหา
+                    </button>
+                </form>
+
+                <!-- ไอคอนผู้ใช้ -->
+                <a href="#" class="btn btn-outline-secondary me-2">
+                    <i class="bi bi-person"></i>
+                </a>
+
+                <!-- ไอคอนตะกร้าสินค้า -->
+                <a href="cart.html" class="btn btn-outline-secondary position-relative">
+                    <i class="bi bi-cart"></i>
+                    <span id="cartCount"
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        0
+                    </span>
+                </a>
+            </div>
+        </header>
+
+        <div class="container mt-5">
+            <h1 class="mb-4">ตะกร้าสินค้า</h1>
+
+            <div class="row">
+                <!-- รายการสินค้าในตะกร้า -->
+                <div class="col-md-8" id="cartItemsContainer">
+                    <!-- สินค้าในตะกร้าจะถูกเพิ่มที่นี่ด้วย JavaScript -->
+                </div>
+
+                <!-- สรุปราคา -->
+                <div class="col-md-4">
+                    <div class="cart-summary">
+                        <h4>สรุปรายการสั่งซื้อ</h4>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <span>ยอดรวม</span>
+                            <span id="subtotalPrice">0 ฿</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>ส่วนลด</span>
+                            <span id="discountPrice">0 ฿</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span>ยอดสุทธิ</span>
+                            <span id="totalPrice">0 ฿</span>
+                        </div>
+                        <button id="checkoutBtn" class="btn btn-primary w-100 mt-3">
+                            <i class="fas fa-credit-card"></i> ดำเนินการชำระเงิน
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // ฟังก์ชันอัปเดตจำนวนสินค้าในตะกร้า
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const totalItems = cart.reduce((sum, product) => sum + product.quantity, 0);
+            document.getElementById("cartCount").textContent = totalItems;
+        }
+
+        // ฟังก์ชันแสดงสินค้าในตะกร้า
+
+        function displayCartItems() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const cartContainer = document.getElementById("cartItemsContainer");
+            const subtotalEl = document.getElementById("subtotalPrice");
+            const totalEl = document.getElementById("totalPrice");
+
+            cartContainer.innerHTML = '';
+
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `
+            <div class="alert alert-info text-center">
+                ตะกร้าสินค้าว่างเปล่า
+            </div>
+        `;
+                subtotalEl.textContent = "0 ฿";
+                totalEl.textContent = "0 ฿";
+                return;
+            }
+
+            cart.forEach((product, index) => {
+                const itemTotal = product.price * product.quantity;
+                subtotal += itemTotal;
+
+                const cartItemHTML = `
+            <div class="card mb-3 cart-item">
+                <div class="card-body d-flex align-items-center">
+                    <img src="${product.image}" class="me-3" alt="${product.name}">
+                    <div class="flex-grow-1">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">${product.description}</p>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-sm btn-outline-secondary me-2 quantity-decrease" data-index="${index}">-</button>
+                            <span class="me-2">${product.quantity}</span>
+                            <button class="btn btn-sm btn-outline-secondary me-2 quantity-increase" data-index="${index}">+</button>
+                            <span class="ms-auto">${product.price.toLocaleString()} ฿</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-sm ms-3 remove-item" data-index="${index}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+                cartContainer.innerHTML += cartItemHTML;
+            });
+
+            // ใช้ toLocaleString() เพื่อแสดงราคาที่มีจุลภาค
+            subtotalEl.textContent = `${subtotal.toLocaleString()} ฿`;
+            totalEl.textContent = `${subtotal.toLocaleString()} ฿`;
+
+            attachCartEventListeners();
+        }
+
+        // ฟังก์ชันเพิ่ม Event Listener สำหรับจัดการตะกร้า
+        function attachCartEventListeners() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // เพิ่มจำนวนสินค้า
+            document.querySelectorAll('.quantity-increase').forEach(button => {
+                button.addEventListener('click', function () {
+                    const index = this.getAttribute('data-index');
+                    cart[index].quantity += 1;
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    displayCartItems();
+                    updateCartCount();
+                });
+            });
+
+            // ลดจำนวนสินค้า
+            document.querySelectorAll('.quantity-decrease').forEach(button => {
+                button.addEventListener('click', function () {
+                    const index = this.getAttribute('data-index');
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity -= 1;
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        displayCartItems();
+                        updateCartCount();
+                    }
+                });
+            });
+
+            // ลบสินค้าออกจากตะกร้า
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function () {
+                    const index = this.getAttribute('data-index');
+                    cart.splice(index, 1);
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    displayCartItems();
+                    updateCartCount();
+                });
+            });
+        }
+
+        // เพิ่มการชำระเงิน
+        document.getElementById('checkoutBtn').addEventListener('click', function () {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (cart.length === 0) {
+                Swal.fire({
+                    title: 'แจ้งเตือน',
+                    text: 'กรุณาเลือกสินค้าก่อนชำระเงิน',
+                    icon: 'warning',
+                    confirmButtonText: 'ตกลง'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'ชำระเงิน',
+                text: 'คุณต้องการดำเนินการชำระเงินหรือไม่?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'ชำระเงิน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // ล้างตะกร้า
+                    localStorage.removeItem("cart");
+                    displayCartItems();
+                    updateCartCount();
+
+                    Swal.fire({
+                        title: 'สำเร็จ!',
+                        text: 'ขอบคุณสำหรับการสั่งซื้อ',
+                        icon: 'success',
+                        confirmButtonText: 'ตกลง'
+                    });
+                }
+            });
+        });
+
+        // โหลดสินค้าในตะกร้าเมื่อหน้าเว็บโหลด
+        document.addEventListener('DOMContentLoaded', () => {
+            displayCartItems();
+            updateCartCount();
+        });
+    </script>
+</body>
+
+</html>
